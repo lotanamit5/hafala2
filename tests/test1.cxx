@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    int x = get_status();
+  int x = get_status();
 	cout << "status: " << x << endl;
 	assert(x == 0);
     x = set_status(1);
