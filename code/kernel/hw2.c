@@ -28,6 +28,7 @@ asmlinkage int sys_get_status(void)
 }
 asmlinkage int sys_register_process(void)
 {
+    printk("HW2: Registered %d\n", current->tgid);
     list_add_tail(&current->imp_entry, current->imp_list);
     return 0;
 }
@@ -46,16 +47,14 @@ asmlinkage long sys_get_all_cs(void)
 
 
     // debugging
-    int i;
-    i = 0;
+    printk("HW2: getting all important cs processes\n");
     for (ptr = current->imp_list->next; ptr != current->imp_list; ptr = ptr->next) {
         entry = list_entry(ptr, struct task_struct, imp_entry);
+        printk("HW2: process: %d, status: %d\n", entry->tgid, entry->status);
         if(entry->status == 1)
         {
             sum += entry->tgid;
         }
-        i++;
-        if (i >= 10) break;
     }
 
     return sum;
