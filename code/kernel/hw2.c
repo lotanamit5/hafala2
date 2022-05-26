@@ -28,7 +28,7 @@ asmlinkage int sys_get_status(void)
 }
 asmlinkage int sys_register_process(void)
 {
-    list_add_tail(&current->imp_entry, &current->imp_list);
+    list_add_tail(&current->imp_entry, current->imp_list);
     return 0;
 }
 
@@ -38,18 +38,24 @@ asmlinkage long sys_get_all_cs(void)
     struct task_struct *entry;
     long sum = 0;
 
-    if (list_empty(&current->imp_list))
+    if (list_empty(current->imp_list))
     {
         printk("Error: no processes registered\n");
         return -ENODATA;
     }
 
-    for (ptr = current->imp_list.next; ptr != &current->imp_list; ptr = ptr->next) {
+
+    // debugging
+    int i;
+    i = 0;
+    for (ptr = current->imp_list->next; ptr != current->imp_list; ptr = ptr->next) {
         entry = list_entry(ptr, struct task_struct, imp_entry);
         if(entry->status == 1)
         {
             sum += entry->tgid;
         }
+        i++;
+        if (i >= 10) break;
     }
 
     return sum;
