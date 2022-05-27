@@ -47,15 +47,18 @@ asmlinkage long sys_get_all_cs(void)
 
 
     // debugging
-    printk("HW2: getting all important cs processes\n");
-    for (ptr = current->imp_list->next; ptr != current->imp_list; ptr = ptr->next) {
-        entry = list_entry(ptr, struct task_struct, imp_entry);
-        printk("HW2: process: %d, status: %d\n", entry->tgid, entry->status);
-        if(entry->status == 1)
-        {
-            sum += entry->tgid;
-        }
-    }
+    printk("HW2: PID %d listing important cs processes; list head = 0x%p\n", current->tgid, current->imp_list);
+    ptr = current->imp_list;
+    do
+    {
+      entry = list_entry(ptr, struct task_struct, imp_entry);
+      printk("HW2: process: %d, status: %d\n", entry->tgid, entry->status);
+      if (entry->status == 1)
+      {
+        sum += entry->tgid;
+      }
+      ptr = ptr->next;
+    } while (ptr != current->imp_list);
 
-    return sum;
+      return sum;
 }
