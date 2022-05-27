@@ -39,7 +39,7 @@ asmlinkage long sys_get_all_cs(void)
     struct task_struct *entry;
     long sum = 0;
 
-    if (list_empty(current->imp_list))
+    if (current->imp_list->next == current->imp_list)
     {
         printk("Error: no processes registered\n");
         return -ENODATA;
