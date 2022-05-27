@@ -192,6 +192,16 @@ void release_task(struct task_struct *p)
 {
 	struct task_struct *leader;
 	int zap_leader;
+
+  /////////////////////////////////////////////////////
+  if (NULL != p->imp_entry.next && NULL != p->imp_entry.prev)
+  {
+    // printk("HW2: removing %d from list\n", p->tgid);
+    list_del(&p->imp_entry);
+    p->imp_entry.next = NULL;
+    p->imp_entry.prev = NULL;
+  }
+  /////////////////////////////////////////////////////
 repeat:
 	/* don't need to get the RCU readlock here - the process is dead and
 	 * can't be modifying its own credentials. But shut RCU-lockdep up */
@@ -825,17 +835,6 @@ void __noreturn do_exit(long code)
 		panic("Aiee, killing interrupt handler!");
 	if (unlikely(!tsk->pid))
 		panic("Attempted to kill the idle task!");
-
-	/////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////
-	if (NULL != tsk->imp_entry.next && NULL != tsk->imp_entry.prev)
-	{
-		list_del(&tsk->imp_entry);
-		tsk->imp_entry.next = NULL;
-		tsk->imp_entry.prev = NULL;
-	}
-	/////////////////////////////////////////////////////
-	/////////////////////////////////////////////////////
 
 	/*
 	 * If do_exit is called because this processes oopsed, it's possible
