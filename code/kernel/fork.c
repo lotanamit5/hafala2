@@ -2082,6 +2082,7 @@ static __latent_entropy struct task_struct *copy_process(
 
 	p->imp_entry.next = NULL;
 	p->imp_entry.prev = NULL;
+  p->registered = 0;
 
 	/////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////
