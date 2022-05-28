@@ -1,0 +1,10 @@
+1. Unzip to a new folder.
+2. From the terminal of that folder run: make
+3. For running all tests: ./test.out
+4. For running specific test: ./test.out <test index>
+5. The results will be displayed on the terminal.
+6. In case of failure you'll be able to see the exact line caused the failure.
+
+Good luck:)
+
+Note: test no. 9 takes a few seconds (~3).
