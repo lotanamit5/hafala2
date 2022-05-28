@@ -10,7 +10,7 @@ asmlinkage long sys_hello(void)
     return 0;
 }
 
-asmlinkage int sys_set_status(int status)
+asmlinkage long sys_set_status(int status)
 {
     if (status != 0 && status != 1)
     {
@@ -28,8 +28,11 @@ asmlinkage int sys_get_status(void)
 }
 asmlinkage int sys_register_process(void)
 {
-    printk("HW2: Registered %d\n", current->tgid);
+    if (current->registered == 1) return 0;
+    // printk("HW2: Registered %d\n", current->tgid);
     list_add_tail(&current->imp_entry, current->imp_list);
+    
+    current->registered = 1;
     return 0;
 }
 
@@ -47,10 +50,10 @@ asmlinkage long sys_get_all_cs(void)
 
 
     // debugging
-    printk("HW2: getting all important cs processes\n");
+    // printk("HW2: %d getting all important cs processes\n", current->tgid);
     for (ptr = current->imp_list->next; ptr != current->imp_list; ptr = ptr->next) {
         entry = list_entry(ptr, struct task_struct, imp_entry);
-        printk("HW2: process: %d, status: %d\n", entry->tgid, entry->status);
+        // printk("HW2: process: %d, status: %d\n", entry->tgid, entry->status);
         if(entry->status == 1)
         {
             sum += entry->tgid;

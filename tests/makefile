@@ -10,7 +10,7 @@ CXXFLAGS := -std=c++11 -O3
 all: $(TARGETS)
 
 $(TARGETS): %.exe: %.cxx $(SOURCES) $(HEADERS)
-	$(CXX) $(CXXFLAGS) $< $(SOURCES) -o $@
+	$(CXX) -pthread $(CXXFLAGS) $< $(SOURCES) -o $@
 
 test: $(GRADE)
 

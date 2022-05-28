@@ -1,21 +1,21 @@
 #include "hw2_test.h"
 
-int set_status(int status) {
-    long r = syscall(334, status);
-    return r;
+long hello(void) {
+    return syscall(333);
+}
+
+long set_status(int status) {
+    return syscall(334, status);
 }
 
 int get_status() {
-    long r = syscall(335);
-    return r;
+    return (int)syscall(335);
 }
 
 int register_process() {
-	long r = syscall(336);
-    return r;
+	return (int)syscall(336);
 }
 
 long get_all_cs() {
-	long r = syscall(337);
-    return r;
+	return syscall(337);
 }

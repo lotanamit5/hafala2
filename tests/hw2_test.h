@@ -6,7 +6,8 @@
 #include <sys/syscall.h>
 
 // System call wrappers
-int set_status(int status);
+long hello(void);
+long set_status(int status);
 int get_status();
 int register_process();
 long get_all_cs();
