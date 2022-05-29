@@ -15,5 +15,5 @@ set -m
 # fg 2
 
 # ./test4.exe
-./test5.exe
+# ./test5.exe
 ./test6.exe

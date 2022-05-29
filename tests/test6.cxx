@@ -666,7 +666,7 @@ purple();      printf("Running test# %ld %s ... ", id, name);  reset(); \
 
 /*The functions for the tests should be added here*/
 bool (*tests[]) (void) = {
-        // testInTheRightOS,
+        testInTheRightOS,
 		testSegel,
         testHello,
 		testErrSetStatus,
@@ -685,7 +685,7 @@ bool (*tests[]) (void) = {
 
 /*The names of the test functions should be added here*/
 const char* testNames[NUMBER_TESTS] = {
-        // "Are we in the right OS version?",
+        "Are we in the right OS version?",
 		"Given by Segel",
         "Hello World",
 		"Set Status - Err check",
